@@ -43,6 +43,42 @@ body {
   line-height:1.7;
   margin-top: 60px; /* space for ribbon */
 }
+  
+/* Background Logo for Header */
+.header-bg-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0; /* behind header content */
+  pointer-events: none; /* clickable content not blocked */
+  opacity: 0.08; /* subtle watermark effect */
+}
+
+.header-bg-logo img {
+  width: 600px; /* adjust size for desktop */
+  height: auto;
+  filter: drop-shadow(0 0 20px var(--accent)) 
+          drop-shadow(0 0 40px var(--secondary));
+}
+
+header {
+  position: relative; /* to position bg logo */
+  z-index: 1; /* header content above logo */
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+  .header-bg-logo img {
+    width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-bg-logo img {
+    width: 200px;
+  }
+}
 
 /* TOP SCROLLING NEWS RIBBON */
 .top-ribbon {
@@ -386,6 +422,7 @@ setInterval(fetchPrices,60000);
 </script>
 </body>
 </html>
+
 
 
 
