@@ -114,28 +114,38 @@ header {
   position:relative;
   z-index:1;
 }
+  
 .logo-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .logo-container img {
-  width: 90px;
+  width: 100px; /* adjust to taste */
   height: auto;
-  filter: drop-shadow(0 0 10px var(--accent));
-  transition: transform 0.3s ease, filter 0.3s ease;
+  border-radius: 15px; /* smooth corners */
+  background: #0d0d18; /* dark background so JPEG blends in */
+  padding: 5px;
+  box-shadow:
+    0 0 10px var(--accent),
+    0 0 20px var(--secondary),
+    0 0 30px var(--primary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .logo-container img:hover {
-  transform: scale(1.08);
-  filter: drop-shadow(0 0 20px var(--secondary));
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow:
+    0 0 20px var(--accent),
+    0 0 40px var(--secondary),
+    0 0 60px var(--primary);
 }
 
 /* Mobile */
 @media (max-width: 600px) {
   .logo-container img {
-    width: 65px;
+    width: 70px;
   }
 }
 
@@ -376,6 +386,7 @@ setInterval(fetchPrices,60000);
 </script>
 </body>
 </html>
+
 
 
 
