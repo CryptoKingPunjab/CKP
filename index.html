@@ -116,15 +116,31 @@ header {
 }
   
 /* BACKGROUND LOGO WATERMARK */
-.header-logo-bg{
-  position:absolute;
-  inset:0;
-  background:url("https://raw.githubusercontent.com/CryptoKingPunjab/CKP/main/assets/images/logo.jpeg") center center no-repeat;
-  background-size:460px;
-  opacity:0.10;
-  filter:grayscale(100%) contrast(120%);
-  z-index:0;
-  pointer-events:none;
+.header-logo-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    url("https://raw.githubusercontent.com/CryptoKingPunjab/CKP/main/assets/images/logo.jpeg")
+    center center no-repeat;
+  background-size: 460px;
+  opacity: 0.12;
+  filter: grayscale(100%) contrast(120%);
+  z-index: 0;
+  pointer-events: none;
+
+  /* 🔥 EDGE BLENDING MAGIC */
+  -webkit-mask-image: radial-gradient(
+    circle,
+    rgba(0,0,0,1) 35%,
+    rgba(0,0,0,0.6) 55%,
+    rgba(0,0,0,0) 75%
+  );
+  mask-image: radial-gradient(
+    circle,
+    rgba(0,0,0,1) 35%,
+    rgba(0,0,0,0.6) 55%,
+    rgba(0,0,0,0) 75%
+  );
 }
 
 /* KEEP CONTENT ABOVE LOGO */
@@ -366,6 +382,7 @@ setInterval(fetchPrices,60000);
 </script>
 </body>
 </html>
+
 
 
 
