@@ -123,24 +123,37 @@ header {
     url("https://raw.githubusercontent.com/CryptoKingPunjab/CKP/main/assets/images/logo.jpeg")
     center center no-repeat;
   background-size: 460px;
-  opacity: 0.12;
-  filter: grayscale(100%) contrast(120%) blur(2px);
+
+  opacity: 0.14;
   z-index: 0;
   pointer-events: none;
 
-  /* 🔥 EDGE BLENDING MAGIC */
+  /* soften the image itself */
+  filter: grayscale(100%) contrast(115%) blur(2.5px);
+
+  /* heavy feathering from all sides */
   -webkit-mask-image: radial-gradient(
-    circle,
-    rgba(0,0,0,1) 35%,
-    rgba(0,0,0,0.6) 55%,
-    rgba(0,0,0,0) 75%
+    ellipse,
+    rgba(0,0,0,1) 22%,
+    rgba(0,0,0,0.55) 40%,
+    rgba(0,0,0,0.15) 55%,
+    rgba(0,0,0,0) 70%
   );
   mask-image: radial-gradient(
-    circle,
-    rgba(0,0,0,1) 35%,
-    rgba(0,0,0,0.6) 55%,
-    rgba(0,0,0,0) 75%
+    ellipse,
+    rgba(0,0,0,1) 22%,
+    rgba(0,0,0,0.55) 40%,
+    rgba(0,0,0,0.15) 55%,
+    rgba(0,0,0,0) 70%
   );
+}
+  
+@media (max-width: 768px) {
+  .header-logo-bg {
+    background-size: 360px;
+    filter: grayscale(100%) blur(3px);
+    opacity: 0.1;
+  }
 }
 
 /* KEEP CONTENT ABOVE LOGO */
@@ -382,6 +395,7 @@ setInterval(fetchPrices,60000);
 </script>
 </body>
 </html>
+
 
 
 
