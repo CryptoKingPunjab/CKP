@@ -378,31 +378,54 @@ function animateCoins(){
 animateCoins();
 
 // Live prices
-async function fetchPrices(){
-  const ids = "bitcoin,ethereum,solana,binancecoin";
+// 1. Variables
+let currentData = {};
+let displayedData = {};
+const coinsList = ["bitcoin","ethereum","solana","binancecoin"];
+coinsList.forEach(key => displayedData[key] = 0);
+
+// 2. Fetch API safely
+async function fetchPricesFromAPI() {
+  const ids = coinsList.join(",");
   const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`);
   const data = await res.json();
+  currentData = data;
+}
+fetchPricesFromAPI();
+setInterval(fetchPricesFromAPI, 30000);
+
+// 3. Animate displayed prices smoothly
+function animatePrices() {
   const container = document.getElementById("crypto-prices");
-  container.innerHTML="";
+  container.innerHTML = "";
+
   const coinsData = {
     bitcoin:{name:"Bitcoin", logo:"https://cryptologos.cc/logos/bitcoin-btc-logo.png"},
     ethereum:{name:"Ethereum", logo:"https://cryptologos.cc/logos/ethereum-eth-logo.png"},
     solana:{name:"Solana", logo:"https://cryptologos.cc/logos/solana-sol-logo.png"},
     binancecoin:{name:"BNB", logo:"https://cryptologos.cc/logos/binance-coin-bnb-logo.png"}
   };
-  for(let key in coinsData){
-    const price = data[key].usd;
-    const change = data[key].usd_24h_change.toFixed(2);
+
+  for (let key in coinsData) {
+    const targetPrice = currentData[key]?.usd || 0;
+    displayedData[key] += (targetPrice - displayedData[key]) * 0.1;
+
+    const change = currentData[key]?.usd_24h_change?.toFixed(2) || 0;
+
     const card = document.createElement("div");
-    card.className="crypto-card";
-    card.innerHTML=`<img src="${coinsData[key].logo}" class="crypto-logo"><h3>${coinsData[key].name}</h3>
-                    <div class="price">$${price}</div>
-                    <div class="change" style="color:${change>=0?'var(--crypto-up)':'var(--crypto-down)'}">${change}% (24h)</div>`;
+    card.className = "crypto-card";
+    card.innerHTML = `
+      <img src="${coinsData[key].logo}" class="crypto-logo">
+      <h3>${coinsData[key].name}</h3>
+      <div class="price">$${displayedData[key].toFixed(2)}</div>
+      <div class="change" style="color:${change>=0?'var(--crypto-up)':'var(--crypto-down)'}">${change}% (24h)</div>
+    `;
     container.appendChild(card);
   }
+
+  requestAnimationFrame(animatePrices);
 }
-fetchPrices();
-setInterval(fetchPrices,60000);
+animatePrices();
   
   // Subtle vertical parallax for logo background
 const logoBg = document.querySelector(".header-logo-bg");
@@ -414,6 +437,7 @@ window.addEventListener("scroll", () => {
 </script>
 </body>
 </html>
+
 
 
 
