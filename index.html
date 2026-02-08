@@ -124,14 +124,14 @@ header {
     center center no-repeat;
   background-size: 460px;
 
-  opacity: 0.14;
-  z-index: 0;
-  pointer-events: none;
+  /* Breathing opacity */
+  opacity: 0.12;
+  animation: breathe 18s ease-in-out infinite;
 
-  /* soften the image itself */
+  /* Soft blur and grayscale */
   filter: grayscale(100%) contrast(115%) blur(2.5px);
 
-  /* heavy feathering from all sides */
+  /* Heavy edge blending */
   -webkit-mask-image: radial-gradient(
     ellipse,
     rgba(0,0,0,1) 22%,
@@ -146,8 +146,19 @@ header {
     rgba(0,0,0,0.15) 55%,
     rgba(0,0,0,0) 70%
   );
+
+  z-index: 0;
+  pointer-events: none;
+
+  /* Noise overlay */
+  background-blend-mode: overlay;
 }
   
+@keyframes breathe {
+  0%, 100% { opacity: 0.10; }
+  50% { opacity: 0.14; }
+}
+
 @media (max-width: 768px) {
   .header-logo-bg {
     background-size: 360px;
@@ -392,9 +403,18 @@ async function fetchPrices(){
 }
 fetchPrices();
 setInterval(fetchPrices,60000);
+  
+  // Subtle vertical parallax for logo background
+const logoBg = document.querySelector(".header-logo-bg");
+window.addEventListener("scroll", () => {
+  const offset = window.scrollY * 0.03; // tiny movement
+  logoBg.style.transform = `translateY(${offset}px)`;
+});
+
 </script>
 </body>
 </html>
+
 
 
 
