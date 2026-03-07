@@ -315,11 +315,11 @@ async function fetchPrices(){
   c.innerHTML="";
 
   const coins={
-    bitcoin:{name:"Bitcoin",logo:"https://cryptologos.cc/logos/bitcoin-btc-logo.png"},
-    ethereum:{name:"Ethereum",logo:"https://cryptologos.cc/logos/ethereum-eth-logo.png"},
-    solana:{name:"Solana",logo:"https://cryptologos.cc/logos/solana-sol-logo.png"},
-    binancecoin:{name:"BNB",logo:"https://cryptologos.cc/logos/binance-coin-bnb-logo.png"}
-  };
+  bitcoin:{name:"Bitcoin",logo:"./images/btc.png"},
+  ethereum:{name:"Ethereum",logo:"./images/eth.png"},
+  solana:{name:"Solana",logo:"./images/sol.png"},
+  binancecoin:{name:"BNB",logo:"./images/bnb.png"}
+};
 
   for(let k in coins){
     livePrices[k]=data[k].usd;
@@ -390,6 +390,7 @@ window.addEventListener("scroll", () => {
 
 </body>
 </html>
+
 
 
 
